@@ -1,0 +1,1 @@
+v1 -> criação da fila de pedidos e do pedido(lista) simples, contendo um id e um produto, sem erros.

@@ -1,4 +1,4 @@
-# <img src="https://img.icons8.com/ios/50/joint.png" > Café fumante
+# <img src="icon.png" > Café fumante
 Cafeteria
 # :hammer: Funcionalidades do projeto
 - `Receber Pedidos`: O sistema registra o pedido e o armazena em uma fila de pedidos grandes ou pequenos

@@ -1,4 +1,4 @@
 v1 -> criação da fila de pedidos e do pedido(lista) simples, contendo um id e um produto, sem erros.
 
 v2 -> criação do menu contendo INSERIR PEDIDOS, MOSTRAR PEDIDOS, SAIR DO SISTEMA,
-os pedidos mostram o IdPedido, Item, Nome_Cliente, sem erros.
+os pedidos mostram o IdPedido, Item, Nome_Cliente, e criação de listas com prioridades, sem erros.

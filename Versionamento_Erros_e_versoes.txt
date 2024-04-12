@@ -4,3 +4,5 @@ v2 -> criação do menu contendo INSERIR PEDIDOS, MOSTRAR PEDIDOS, SAIR DO SISTE
 os pedidos mostram o IdPedido, Item, Nome_Cliente, criação de listas com prioridades, e um sistema de estado de entrega dos produtos, sem erros.
 
 v3 -> criação do sistema de produtos, lista, contendo idProduto, Nome Produto, Preço Produto, eles são inseridos antes do sistema inicializar o menu, e quando o pedido é entregue é calculado o seu valor, sem erros.
+
+v3.2 -> sistema de validação de valores, sem erros.

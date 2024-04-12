@@ -203,11 +203,12 @@ void alterarEstadoPedido(struct Fila *fila, struct LstEstc *lista,
 
 int main() {
 
-  int condicao = 1;
+  int condicao;
   int quantidadeItensPedido = 0;
   char produto[50];
   char nomeCliente[50];
   int tipoListaEntregarPedido;
+  int validador = 0;
 
   /*Inicia a lista de produtos*/
 
@@ -257,8 +258,18 @@ int main() {
       printf("|Digite a quantidade de itens no pedido  \n");
       scanf("%i", &quantidadeItensPedido);
       for (int p = 0; p < quantidadeItensPedido; p++) {
-        printf("|Digite o nome do produto  \n");
-        scanf("%s", produto);
+        while( validador == 0 ) {
+          printf("|Digite o nome do produto  \n");
+          scanf("%s", produto);
+          if ( calcularPrecoPedido(&produtos, produto) != 0 ){
+              validador = 1;
+          } else {
+            printf("Produto não identificado \n");
+            printf("\n");
+            validador = 0;
+          }
+        }
+        validador = 0;
         if (quantidadeItensPedido <= 3) {
           inserir(&dadosPedidosSimples, &filaPedidosSimples, &idFilaSimples,
                   produto, nomeCliente, "PENDENTE", 1);
@@ -276,20 +287,17 @@ int main() {
       } else {
         idFilaComplexa++;
       }
-    }
-    if (condicao == 2) {
+    } else if (condicao == 2) {
       printf("\n");
       exibirProdutos(&produtos);
       printf("\n");
-    }
-    if (condicao == 3) {
+    } else if (condicao == 3) {
       printf("\n");
       exibir(&dadosPedidosSimples, "Simples");
       printf("\n");
       exibir(&dadosPedidosComplexos, "Complexos");
       printf("\n");
-    }
-    if (condicao == 4) {
+    } else if (condicao == 4) {
       printf("\n");
       printf("|Pedido simples(1) ou complexo(2) ?  \n");
       scanf("%i", &tipoListaEntregarPedido);
@@ -300,7 +308,17 @@ int main() {
         alterarEstadoPedido(&filaPedidosComplexos, &dadosPedidosComplexos,
                             &produtos);
       }
+    } else if (condicao == 5) {
+      printf("\n");
+      printf("Programa desligado");
+      break;
+    } else {
+      printf("\n");
+      printf("Caractere inválido \n");
+      printf("Programa desligado");
+      break;
     }
+    condicao = 0;
   }
 
   return 0;

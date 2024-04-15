@@ -2,11 +2,11 @@
 Criado para simular um Menu de uma cafeteria em C, contendo uma lista de produtos, duas filas e listas de pedidos. Possuindo as funções de receber, armazenar e listar pedidos e produtos, todas com validações de valores.
 Partes do Projeto:
 * [Menu](#menu)
-    *[Inserir Pedidos](#inserir-pedidos)
-    *[Mostrar Produtos](#mostrar-produtos)
-    *[Mostrar Pedidos](#mostrar-pedidos)
-    *[Entregar Pedido](#entregar-pedido)
-    *[Sair do Sistema](#sair-do-sistema)
+    * [Inserir Pedidos](#inserir-pedidos)
+    * [Mostrar Produtos](#mostrar-produtos)
+    * [Mostrar Pedidos](#mostrar-pedidos)
+    * [Entregar Pedido](#entregar-pedido)
+    * [Sair do Sistema](#sair-do-sistema)
 * [Cardápio](#cardápio)
 ## Menu
 # <img src="img/Menu.png">

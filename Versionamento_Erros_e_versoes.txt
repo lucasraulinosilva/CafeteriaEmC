@@ -6,3 +6,5 @@ os pedidos mostram o IdPedido, Item, Nome_Cliente, criação de listas com prior
 v3 -> criação do sistema de produtos, lista, contendo idProduto, Nome Produto, Preço Produto, eles são inseridos antes do sistema inicializar o menu, e quando o pedido é entregue é calculado o seu valor, sem erros.
 
 v3.2 -> sistema de validação de valores, sem erros.
+
+v4 -> sistema reconhece o produto a ser inserido no pedido por nome ou id

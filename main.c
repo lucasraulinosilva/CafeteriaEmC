@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 /*definindo a variável de tamanho máximo*/
 #define MAX_SIZE 100
@@ -177,6 +178,19 @@ float calcularPrecoPedido(struct LstEstcProdutos *produtos,
   return precoTotalPedido;
 }
 
+char *calcularPrecoPedidoId(struct LstEstcProdutos *produtos,
+                          int idProdutoCalcular) {
+  float precoTotalPedido = 0;
+  static char nomeProduto[50];
+  for (int i = 0; i < produtos->tamanhoListaProdutos; i++) {
+    if (produtos->listaProdutos[i].idProduto == idProdutoCalcular) {
+      precoTotalPedido += produtos->listaProdutos[i].precoProduto;
+      strcpy(nomeProduto, produtos->listaProdutos[i].nomeProduto);
+    }
+  }
+  return nomeProduto;
+}
+
 void alterarEstadoPedido(struct Fila *fila, struct LstEstc *lista,
                         struct LstEstcProdutos *produtos) {
   int inicioFila = (peek(fila) - 1);
@@ -220,7 +234,7 @@ int main() {
   inserirProduto(&produtos, "Café", 5.0);
   inserirProduto(&produtos, "Cookie", 3.0);
   inserirProduto(&produtos, "Café_com_Leite", 6.0);
-  inserirProduto(&produtos, "Audi_A3_1.8_aspirada_2003_Multada_e_Roubada", 6784.00);
+  
 
   /*Inicia a fila de pedidos*/
 
@@ -259,9 +273,12 @@ int main() {
       scanf("%i", &quantidadeItensPedido);
       for (int p = 0; p < quantidadeItensPedido; p++) {
         while( validador == 0 ) {
-          printf("|Digite o nome do produto  \n");
+          printf("|Digite o nome do produto ou seu Id \n");
           scanf("%s", produto);
-          if ( calcularPrecoPedido(&produtos, produto) != 0 ){
+          if ( calcularPrecoPedido(&produtos, produto) ){
+              validador = 1;
+          } else if ( calcularPrecoPedidoId(&produtos, atoi(produto)) ) {
+              strcpy(produto, calcularPrecoPedidoId(&produtos, atoi(produto)));
               validador = 1;
           } else {
             printf("Produto não identificado \n");
@@ -274,7 +291,7 @@ int main() {
           inserir(&dadosPedidosSimples, &filaPedidosSimples, &idFilaSimples,
                   produto, nomeCliente, "PENDENTE", 1);
           printf("|Pedido adicionado a fila  \n");
-          printf("\n");
+          printf("\n"); 
         } else {
           inserir(&dadosPedidosComplexos, &filaPedidosComplexos,
                   &idFilaComplexa, produto, nomeCliente, "PENDENTE", 2);

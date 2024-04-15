@@ -1,5 +1,8 @@
 # <img src="img/icon.png" > Café fumante
 Criado para simular um Menu de uma cafeteria em C, contendo uma lista de produtos, duas filas e listas de pedidos. Possuindo as funções de receber, armazenar e listar pedidos e produtos, todas com validações de valores.
+Partes do Projeto:
+* [Menu](#menu)
+* [Cardápio](#cardápio)
 ## Menu
 # <img src="img/Menu.png">
 Menu simples, criado para solucionar as principais necessidades do estabelecimento, para selecionar a função deseja basta digitar o número.

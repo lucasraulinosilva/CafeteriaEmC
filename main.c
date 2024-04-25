@@ -174,23 +174,46 @@ void inserirFuncionario(struct LstFunc *funcionarios, char *nomeFuncionario,
   }
 }
 
+/*função para procurar funcionário*/
+
+int procurarFuncionario(struct LstFunc *funcionarios, int idFuncionario) {
+  int validadorProcurarFuncionario = 0;
+
+  if ( idFuncionario <= funcionarios->tamanhoListaFuncionarios) {
+     for (int i = 0; i <= idFuncionario; i++) {
+       if ( (i + 1) == funcionarios->funcionario[i].idFuncionario ) {
+         validadorProcurarFuncionario = 1;
+       }
+     }
+  }
+
+  return validadorProcurarFuncionario;
+}
+
 /*função para remover um funcionário*/
 
-void removerFuncionario (struct LstFunc* funcionarios, int idFuncionarioRemover) {
+void removerFuncionario(struct LstFunc *funcionarios,
+                        int idFuncionarioRemover) {
   /*if (posicao < 0 || posicao >= lista->tamanho) {
     printf("Posição inválida. Impossível remover.\n");
     return;
   }*/
-  
-  // Movendo elementos para trás 
-  // para preencher a posição removida
-  for (int i = (idFuncionarioRemover - 1); i < funcionarios->tamanhoListaFuncionarios - 1; i++) {
+
+  int resultadoProcuraFuncionario = procurarFuncionario(funcionarios, idFuncionarioRemover);
+
+  if ( resultadoProcuraFuncionario == 1 ) {
+    for (int i = (idFuncionarioRemover - 1);
+       i < funcionarios->tamanhoListaFuncionarios - 1; i++) {
     funcionarios->funcionario[i] = funcionarios->funcionario[i + 1];
+    }
+
+    funcionarios->tamanhoListaFuncionarios--;
+    printf("Funcionário removido com sucesso \n");
+  } else {
+    printf("Funcionário com id não identificado \n");
   }
 
-  funcionarios->tamanhoListaFuncionarios--;
 }
-
 
 /*função para inserir um produto*/
 
@@ -391,7 +414,7 @@ int main() {
 
   /*Definindo a senha do sistema*/
 
-  definirSenha("tropa_da_Audi");
+  definirSenha("123");
 
   /*Inicia a lista de funcionários*/
 
@@ -529,18 +552,19 @@ int main() {
           printf("\n");
           printf("Digite o nome do funcionário: \n");
           scanf("%s", nomeFuncionario);
-          printf("Digite o  cargo: \n");
+          printf("Digite o cargo: \n");
           scanf("%s", cargoFuncionario);
           printf("Digite o turno: \n");
           scanf("%s", turnoFuncionario);
           printf("Digite o salario: \n");
-          scanf("%f",&salarioFuncionario);
-          inserirFuncionario(&funcionarios, nomeFuncionario, cargoFuncionario, turnoFuncionario, salarioFuncionario);
+          scanf("%f", &salarioFuncionario);
+          inserirFuncionario(&funcionarios, nomeFuncionario, cargoFuncionario,
+                             turnoFuncionario, salarioFuncionario);
           printf("\n");
         } else if (validadorMenuFuncionarios == 3) {
           printf("\n");
           printf("Digite o id do funcionário a ser removido: \n");
-          scanf("%i",&idFuncionarioExcluido);
+          scanf("%i", &idFuncionarioExcluido);
           removerFuncionario(&funcionarios, idFuncionarioExcluido);
           printf("\n");
         } else if (validadorMenuFuncionarios == 4) {
@@ -559,6 +583,8 @@ int main() {
         }
         validadorMenuFuncionarios = 0;
       }
+    } else {
+      printf("Caractere inválido \n");
     }
   }
 

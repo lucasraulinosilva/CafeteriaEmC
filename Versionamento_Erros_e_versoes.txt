@@ -10,3 +10,5 @@ v3.2 -> sistema de validação de valores, sem erros.
 v4 -> sistema reconhece o produto a ser inserido no pedido por nome ou id
 
 v5 -> criação de um menu principal e um menu de funcionários juntos de suas funções, sem erros.
+
+v6 -> fim da criação das validacões de insercão de dados em todo o sistema, sem erros.

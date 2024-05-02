@@ -106,7 +106,7 @@ int peek(struct Fila *fila) {
   if (!estaVazia(fila)) {
     return fila->elementos[fila->inicio];
   } else {
-    printf("Erro: Fila vazia.\n");
+    printf("Fila vazia.\n");
     return -1;
   }
 }
@@ -179,12 +179,12 @@ void inserirFuncionario(struct LstFunc *funcionarios, char *nomeFuncionario,
 int procurarFuncionario(struct LstFunc *funcionarios, int idFuncionario) {
   int validadorProcurarFuncionario = 0;
 
-  if ( idFuncionario <= funcionarios->tamanhoListaFuncionarios) {
-     for (int i = 0; i <= idFuncionario; i++) {
-       if ( (i + 1) == funcionarios->funcionario[i].idFuncionario ) {
-         validadorProcurarFuncionario = 1;
-       }
-     }
+  if (idFuncionario <= funcionarios->tamanhoListaFuncionarios) {
+    for (int i = 0; i <= idFuncionario; i++) {
+      if ((i + 1) == funcionarios->funcionario[i].idFuncionario) {
+        validadorProcurarFuncionario = 1;
+      }
+    }
   }
 
   return validadorProcurarFuncionario;
@@ -199,12 +199,13 @@ void removerFuncionario(struct LstFunc *funcionarios,
     return;
   }*/
 
-  int resultadoProcuraFuncionario = procurarFuncionario(funcionarios, idFuncionarioRemover);
+  int resultadoProcuraFuncionario =
+      procurarFuncionario(funcionarios, idFuncionarioRemover);
 
-  if ( resultadoProcuraFuncionario == 1 ) {
+  if (resultadoProcuraFuncionario == 1) {
     for (int i = (idFuncionarioRemover - 1);
-       i < funcionarios->tamanhoListaFuncionarios - 1; i++) {
-    funcionarios->funcionario[i] = funcionarios->funcionario[i + 1];
+         i < funcionarios->tamanhoListaFuncionarios - 1; i++) {
+      funcionarios->funcionario[i] = funcionarios->funcionario[i + 1];
     }
 
     funcionarios->tamanhoListaFuncionarios--;
@@ -212,7 +213,6 @@ void removerFuncionario(struct LstFunc *funcionarios,
   } else {
     printf("Funcionário com id não identificado \n");
   }
-
 }
 
 /*função para inserir um produto*/
@@ -240,7 +240,7 @@ void inserirProduto(struct LstEstcProdutos *produtos, char *nomeProduto,
   }
 }
 
-void exibir(struct LstEstc *lista, char *TipoLista) {
+/*void exibir(struct LstEstc *lista, char *TipoLista) {
   printf("Lista de Pedidos %s :\n", TipoLista);
   // Percorre do primeiro elemento até o último
   // que é aquele apontado pelo campo ‘tamanho’
@@ -248,6 +248,32 @@ void exibir(struct LstEstc *lista, char *TipoLista) {
     printf("idPedido: %i, Item: %s, Nome Cliente: %s, Estado Pedido: %s\n",
            lista->pedido[i].idPedido, lista->pedido[i].itemPedido,
            lista->pedido[i].nomeCliente, lista->pedido[i].estadoPedido);
+  }
+}*/
+
+void exibirHistorico(struct LstEstc *lista, char *TipoLista) {
+  printf("Lista de Pedidos %s :\n", TipoLista);
+  // Percorre do primeiro elemento até o último
+  // que é aquele apontado pelo campo ‘tamanho’
+  for (int i = 0; i < lista->tamanho2; i++) {
+    if (strcmp(lista->pedido[i].estadoPedido, "ENTREGUE") == 0) {
+        printf("idPedido: %i, Item: %s, Nome Cliente: %s, Estado Pedido: %s\n",
+               lista->pedido[i].idPedido, lista->pedido[i].itemPedido,
+               lista->pedido[i].nomeCliente, lista->pedido[i].estadoPedido);
+      }
+    }
+}
+
+void exibirProximoPedido(struct LstEstc *lista, char *TipoLista, struct Fila *Fila) {
+  printf("Lista de Pedidos %s :\n", TipoLista);
+  // Percorre do primeiro elemento até o último
+  // que é aquele apontado pelo campo ‘tamanho’
+  for (int i = 0; i < lista->tamanho2; i++) {
+    if (lista->pedido[i].idPedido == peek(Fila)) {
+      printf("idPedido: %i, Item: %s, Nome Cliente: %s, Estado Pedido: %s\n",
+       lista->pedido[i].idPedido, lista->pedido[i].itemPedido,
+       lista->pedido[i].nomeCliente, lista->pedido[i].estadoPedido);
+    }
   }
 }
 
@@ -357,42 +383,45 @@ void alterarEstadoPedido(struct Fila *fila, struct LstEstc *lista,
 void definirSenha(char novaSenha[]) { strcpy(senha, novaSenha); }
 
 void menuPedidos() {
-  printf("|--------------------------|\n");
-  printf("|  MENU CAFETERIA FUMANTE  |\n");
-  printf("|--------------------------|\n");
-  printf("|         COMANDOS         |\n");
-  printf("|--------------------------|\n");
-  printf("|1 - INSERIR PEDIDOS       |\n");
-  printf("|2 - MOSTRAR PRODUTOS      |\n");
-  printf("|3 - MOSTRAR PEDIDOS       |\n");
-  printf("|4 - ENTREGAR PEDIDO       |\n");
-  printf("|5 - SAIR DO SISTEMA       |\n");
-  printf("|--------------------------|\n");
+  printf("|----------------------------|\n");
+  printf("|  MENU CAFETERIA FUMEGANTE  |\n");
+  printf("|----------------------------|\n");
+  printf("|          COMANDOS          |\n");
+  printf("|----------------------------|\n");
+  printf("|1 - INSERIR PEDIDOS         |\n");
+  printf("|2 - MOSTRAR PRODUTOS        |\n");
+  printf("|3 - PROXIMO PEDIDO          |\n");
+  printf("|4 - ENTREGAR PEDIDO         |\n");
+  printf("|5 - HISTORICO               |\n");
+  printf("|6 - MUDAR MENU              |\n");
+  printf("|7 - SAIR DO SISTEMA         |\n");
+  printf("|----------------------------|\n");
 }
 
 void menuPrincipal() {
-  printf("|--------------------------|\n");
-  printf("|  MENU CAFETERIA FUMANTE  |\n");
-  printf("|--------------------------|\n");
-  printf("|         COMANDOS         |\n");
-  printf("|--------------------------|\n");
-  printf("|1 - MENU PEDIDOS          |\n");
-  printf("|2 - MENU FUNCIONÁRIOS     |\n");
-  printf("|--------------------------|\n");
+  printf("|----------------------------|\n");
+  printf("|  MENU CAFETERIA FUMEGANTE  |\n");
+  printf("|----------------------------|\n");
+  printf("|          COMANDOS          |\n");
+  printf("|----------------------------|\n");
+  printf("|1 - MENU PEDIDOS            |\n");
+  printf("|2 - MENU FUNCIONÁRIOS       |\n");
+  printf("|----------------------------|\n");
 }
 
 void menuFuncionarios() {
-  printf("|--------------------------|\n");
-  printf("|  MENU CAFETERIA FUMANTE  |\n");
-  printf("|--------------------------|\n");
-  printf("|         COMANDOS         |\n");
-  printf("|--------------------------|\n");
-  printf("|1 - EXIBIR FUNCIONÁRIOS   |\n");
-  printf("|2 - INSERIR FUNCIONÁRIO   |\n");
-  printf("|3 - REMOVER FUNCIONÁRIO   |\n");
-  printf("|4 - FUNCIONÁRIOS POR TURNO|\n");
-  printf("|5 - SAIR DO SISTEMA       |\n");
-  printf("|--------------------------|\n");
+  printf("|----------------------------|\n");
+  printf("|  MENU CAFETERIA FUMEGANTE  |\n");
+  printf("|----------------------------|\n");
+  printf("|          COMANDOS          |\n");
+  printf("|----------------------------|\n");
+  printf("|1 - EXIBIR FUNCIONÁRIOS     |\n");
+  printf("|2 - INSERIR FUNCIONÁRIO     |\n");
+  printf("|3 - REMOVER FUNCIONÁRIO     |\n");
+  printf("|4 - FUNCIONÁRIOS POR TURNO  |\n");
+  printf("|5 - MUDAR MENU              |\n");
+  printf("|6 - SAIR DO SISTEMA         |\n");
+  printf("|----------------------------|\n");
 }
 
 int main() {
@@ -411,6 +440,7 @@ int main() {
   char turnoFuncionario[50];
   float salarioFuncionario;
   int idFuncionarioExcluido;
+  int loopMenuPrincipal = 0;
 
   /*Definindo a senha do sistema*/
 
@@ -460,131 +490,156 @@ int main() {
   printf("Digite a senha\n");
   scanf("%s", verificarSenha);
 
-  if (strcmp(verificarSenha, senha) == 0) {
-    menuPrincipal();
-    scanf("%i", &validadorMenuPrincipal);
-    if (validadorMenuPrincipal == 1) {
-      while (condicao != 5) {
-        menuPedidos();
-        scanf("%i", &condicao);
-        if (condicao == 1) {
+  while (loopMenuPrincipal == 0) {
+    if (strcmp(verificarSenha, senha) == 0) {
+      printf("\n");
+      menuPrincipal();
+      scanf("%i", &validadorMenuPrincipal);
+      if (validadorMenuPrincipal == 1) {
+        while (condicao != 7) {
           printf("\n");
-          printf("|Digite o nome do cliente  \n");
-          scanf("%s", nomeCliente);
-          printf("|Digite a quantidade de itens no pedido  \n");
-          scanf("%i", &quantidadeItensPedido);
-          for (int p = 0; p < quantidadeItensPedido; p++) {
-            while (validador == 0) {
-              printf("|Digite o nome do produto ou seu Id \n");
-              scanf("%s", produto);
-              if (calcularPrecoPedido(&produtos, produto)) {
-                validador = 1;
-              } else if (calcularPrecoPedidoId(&produtos, atoi(produto))) {
-                strcpy(produto,
-                       calcularPrecoPedidoId(&produtos, atoi(produto)));
-                validador = 1;
-              } else {
-                printf("Produto não identificado \n");
+          menuPedidos();
+          scanf("%i", &condicao);
+          if (condicao == 1) {
+            printf("\n");
+            printf("|Digite o nome do cliente  \n");
+            scanf("%s", nomeCliente);
+            printf("|Digite a quantidade de itens no pedido  \n");
+            scanf("%i", &quantidadeItensPedido);
+            for (int p = 0; p < quantidadeItensPedido; p++) {
+              while (validador == 0) {
+                printf("|Digite o nome do produto ou seu Id \n");
+                scanf("%s", produto);
+                if (calcularPrecoPedido(&produtos, produto)) {
+                  validador = 1;
+                } else if (calcularPrecoPedidoId(&produtos, atoi(produto))) {
+                  strcpy(produto,
+                         calcularPrecoPedidoId(&produtos, atoi(produto)));
+                  validador = 1;
+                } else {
+                  printf("Produto não identificado \n");
+                  printf("\n");
+                  validador = 0;
+                }
+              }
+              validador = 0;
+              if (quantidadeItensPedido <= 3) {
+                inserir(&dadosPedidosSimples, &filaPedidosSimples,
+                        &idFilaSimples, produto, nomeCliente, "PENDENTE", 1);
+                printf("|Pedido adicionado a fila  \n");
                 printf("\n");
-                validador = 0;
+              } else {
+                inserir(&dadosPedidosComplexos, &filaPedidosComplexos,
+                        &idFilaComplexa, produto, nomeCliente, "PENDENTE", 2);
+                printf("|Pedido adicionado a fila  \n");
+                printf("\n");
               }
             }
-            validador = 0;
             if (quantidadeItensPedido <= 3) {
-              inserir(&dadosPedidosSimples, &filaPedidosSimples, &idFilaSimples,
-                      produto, nomeCliente, "PENDENTE", 1);
-              printf("|Pedido adicionado a fila  \n");
-              printf("\n");
+              idFilaSimples++;
             } else {
-              inserir(&dadosPedidosComplexos, &filaPedidosComplexos,
-                      &idFilaComplexa, produto, nomeCliente, "PENDENTE", 2);
-              printf("|Pedido adicionado a fila  \n");
-              printf("\n");
+              idFilaComplexa++;
             }
-          }
-          if (quantidadeItensPedido <= 3) {
-            idFilaSimples++;
+          } else if (condicao == 2) {
+            printf("\n");
+            exibirProdutos(&produtos);
+            printf("\n");
+          } else if (condicao == 3) {
+            printf("\n");
+            exibirProximoPedido(&dadosPedidosSimples, "Simples", &filaPedidosSimples);
+            printf("\n");
+            exibirProximoPedido(&dadosPedidosComplexos, "Complexos", &filaPedidosComplexos);
+            printf("\n");
+          } else if (condicao == 4) {
+            printf("\n");
+            printf("|Pedido simples(1) ou complexo(2) ?  \n");
+            scanf("%i", &tipoListaEntregarPedido);
+            if (tipoListaEntregarPedido == 1) {
+              alterarEstadoPedido(&filaPedidosSimples, &dadosPedidosSimples,
+                                  &produtos);
+            } else if (tipoListaEntregarPedido == 2) {
+              alterarEstadoPedido(&filaPedidosComplexos, &dadosPedidosComplexos,
+                                  &produtos);
+            }
+          } else if (condicao == 5) {
+            printf("\n");
+            exibirHistorico(&dadosPedidosSimples, "Simples");
+            printf("\n");
+            exibirHistorico(&dadosPedidosComplexos, "Complexos");
+            printf("\n");
+          } else if (condicao == 6) {
+            printf("\n");
+            break;
+            printf("\n");
+          } else if (condicao == 7) {
+            printf("\n");
+            loopMenuPrincipal = 1;
+            printf("Programa desligado");
+            printf("\n");
+            break;
           } else {
-            idFilaComplexa++;
+            loopMenuPrincipal = 1;
+            printf("\n");
+            printf("Caractere inválido \n");
+            printf("Programa desligado");
+            break;
           }
-        } else if (condicao == 2) {
+          condicao = 0;
+        }
+      } else if (validadorMenuPrincipal == 2) {
+        while (validadorMenuFuncionarios != 6) {
           printf("\n");
-          exibirProdutos(&produtos);
-          printf("\n");
-        } else if (condicao == 3) {
-          printf("\n");
-          exibir(&dadosPedidosSimples, "Simples");
-          printf("\n");
-          exibir(&dadosPedidosComplexos, "Complexos");
-          printf("\n");
-        } else if (condicao == 4) {
-          printf("\n");
-          printf("|Pedido simples(1) ou complexo(2) ?  \n");
-          scanf("%i", &tipoListaEntregarPedido);
-          if (tipoListaEntregarPedido == 1) {
-            alterarEstadoPedido(&filaPedidosSimples, &dadosPedidosSimples,
-                                &produtos);
-          } else if (tipoListaEntregarPedido == 2) {
-            alterarEstadoPedido(&filaPedidosComplexos, &dadosPedidosComplexos,
-                                &produtos);
+          menuFuncionarios();
+          scanf("%i", &validadorMenuFuncionarios);
+          if (validadorMenuFuncionarios == 1) {
+            printf("\n");
+            exibirFuncionarios(&funcionarios);
+            printf("\n");
+          } else if (validadorMenuFuncionarios == 2) {
+            printf("\n");
+            printf("Digite o nome do funcionário: \n");
+            scanf("%s", nomeFuncionario);
+            printf("Digite o cargo: \n");
+            scanf("%s", cargoFuncionario);
+            printf("Digite o turno: \n");
+            scanf("%s", turnoFuncionario);
+            printf("Digite o salario: \n");
+            scanf("%f", &salarioFuncionario);
+            inserirFuncionario(&funcionarios, nomeFuncionario, cargoFuncionario,
+                               turnoFuncionario, salarioFuncionario);
+            printf("\n");
+          } else if (validadorMenuFuncionarios == 3) {
+            printf("\n");
+            printf("Digite o id do funcionário a ser removido: \n");
+            scanf("%i", &idFuncionarioExcluido);
+            removerFuncionario(&funcionarios, idFuncionarioExcluido);
+            printf("\n");
+          } else if (validadorMenuFuncionarios == 4) {
+            printf("\n");
+            exibirFuncionariosPorTurno(&funcionarios);
+            printf("\n");
+          } else if (validadorMenuFuncionarios == 5) {
+            printf("\n");
+            break;
+            printf("\n");
+          } else if (validadorMenuFuncionarios == 6) {
+            printf("\n");
+            loopMenuPrincipal = 1;
+            printf("Programa desligado");
+            printf("\n");
+            break;
+          } else {
+            loopMenuPrincipal = 1;
+            printf("\n");
+            printf("Caractere inválido \n");
+            printf("Programa desligado");
+            break;
           }
-        } else if (condicao == 5) {
-          printf("\n");
-          printf("Programa desligado");
-          break;
-        } else {
-          printf("\n");
-          printf("Caractere inválido \n");
-          printf("Programa desligado");
-          break;
+          validadorMenuFuncionarios = 0;
         }
-        condicao = 0;
+      } else {
+        printf("Caractere inválido \n");
       }
-    } else if (validadorMenuPrincipal == 2) {
-      while (validadorMenuFuncionarios != 5) {
-        menuFuncionarios();
-        scanf("%i", &validadorMenuFuncionarios);
-        if (validadorMenuFuncionarios == 1) {
-          printf("\n");
-          exibirFuncionarios(&funcionarios);
-          printf("\n");
-        } else if (validadorMenuFuncionarios == 2) {
-          printf("\n");
-          printf("Digite o nome do funcionário: \n");
-          scanf("%s", nomeFuncionario);
-          printf("Digite o cargo: \n");
-          scanf("%s", cargoFuncionario);
-          printf("Digite o turno: \n");
-          scanf("%s", turnoFuncionario);
-          printf("Digite o salario: \n");
-          scanf("%f", &salarioFuncionario);
-          inserirFuncionario(&funcionarios, nomeFuncionario, cargoFuncionario,
-                             turnoFuncionario, salarioFuncionario);
-          printf("\n");
-        } else if (validadorMenuFuncionarios == 3) {
-          printf("\n");
-          printf("Digite o id do funcionário a ser removido: \n");
-          scanf("%i", &idFuncionarioExcluido);
-          removerFuncionario(&funcionarios, idFuncionarioExcluido);
-          printf("\n");
-        } else if (validadorMenuFuncionarios == 4) {
-          printf("\n");
-          exibirFuncionariosPorTurno(&funcionarios);
-          printf("\n");
-        } else if (validadorMenuFuncionarios == 5) {
-          printf("\n");
-          printf("Programa desligado");
-          break;
-        } else {
-          printf("\n");
-          printf("Caractere inválido \n");
-          printf("Programa desligado");
-          break;
-        }
-        validadorMenuFuncionarios = 0;
-      }
-    } else {
-      printf("Caractere inválido \n");
     }
   }
 

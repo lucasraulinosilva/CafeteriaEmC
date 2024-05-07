@@ -14,3 +14,5 @@ v5 -> criação de um menu principal e um menu de funcionários juntos de suas f
 v6 -> fim da criação das validacões de insercão de dados em todo o sistema, sem erros.
 
 v7 -> mudança do sistema de visualização de pedidos, e criação da funcionalidade de voltar no menu anterior, sem erros.
+
+v8 -> atualização do README

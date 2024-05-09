@@ -1,4 +1,4 @@
-# Café fumante
+# Café fumegante
 Criado para simular um Menu de uma cafeteria em C, contendo uma lista de produtos, duas filas e listas de pedidos. Possuindo as funções de receber, armazenar e listar pedidos e produtos, todas com validações de valores.
 Partes do Projeto:
 * [Menu Principal](#menu-principal)
